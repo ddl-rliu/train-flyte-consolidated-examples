@@ -1,9 +1,11 @@
-pyflyte run --remote ./train-flyte-consolidated-examples/workflows/art-test.py
-pyflyte run --remote ./train-flyte-consolidated-examples/workflows/art-test2.py
-pyflyte run --remote ./train-flyte-consolidated-examples/workflows/art-workflows.py
-pyflyte run --remote ./train-flyte-consolidated-examples/workflows/artifacts.py
-pyflyte run --remote ./train-flyte-consolidated-examples/workflows/flow.py
-pyflyte run --remote ./train-flyte-consolidated-examples/workflows/inputs_rare_workflow.py
-pyflyte run --remote ./train-flyte-consolidated-examples/workflows/inputs_workflow.py
-pyflyte run --remote ./train-flyte-consolidated-examples/workflows/nested_workflow.py
-pyflyte run --remote ./train-flyte-consolidated-examples/workflows/unions_workflow.py
+TFCE_WORKFLOWS="./train-flyte-consolidated-examples/workflows"
+TFCE_RUN="pyflyte run --remote"
+$TFCE_RUN $TFCE_WORKFLOWS/art-test.py wf
+$TFCE_RUN $TFCE_WORKFLOWS/art-test2.py wf
+$TFCE_RUN $TFCE_WORKFLOWS/art-workflows.py wf
+$TFCE_RUN $TFCE_WORKFLOWS/artifacts.py wf
+$TFCE_RUN $TFCE_WORKFLOWS/flow.py wf
+$TFCE_RUN $TFCE_WORKFLOWS/inputs_rare_workflow.py wf
+$TFCE_RUN $TFCE_WORKFLOWS/inputs_workflow.py wf
+$TFCE_RUN $TFCE_WORKFLOWS/nested_workflow.py wf
+$TFCE_RUN $TFCE_WORKFLOWS/unions_workflow.py wf

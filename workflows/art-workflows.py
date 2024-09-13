@@ -33,7 +33,7 @@ MultiPart = art(name="multipartition", partition_keys=["partition1", "partition2
 
 # TODO: create a new workflow that uses NamedTuple instead to see how the json gets spit out
 @workflow
-def training_workflow(data_path: str) -> Tuple[
+def wf(data_path: str) -> Tuple[
     # Error - Binding a partition partition1's value dynamically is not allowed for workflows
     # Annotated[FlyteFile, Artifact(name="generic", partition_keys=["partition1", "partition2"])],
     Annotated[FlyteFile, art(name="generic")],

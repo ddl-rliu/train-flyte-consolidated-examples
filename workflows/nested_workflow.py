@@ -52,7 +52,7 @@ def echo_nested_two():
 
 # pyflyte run --remote nested_workflow.py nest_user
 @workflow
-def nest_user():
+def wf():
     run_domino_job_task(
         "Echo Nested 3-1", 
         "echo nested3-1",

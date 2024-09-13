@@ -48,7 +48,7 @@ class Color(Enum):
 matches = re.search(r'[0-9]+', "testme"); matches; type(matches)
 
 @workflow
-def workflow() -> None:
+def wf() -> None:
     """
     pyflyte run --remote unions_workflow.py workflow
     """

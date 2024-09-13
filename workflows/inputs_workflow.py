@@ -40,7 +40,7 @@ class Color(Enum):
 
 # union_value: Union[Union[str,int],str,int,bool,datetime,timedelta,FlyteFile,float,dict])
 @workflow
-def workflow(data_path: str, data_path_2: str) -> None:
+def wf(data_path: str, data_path_2: str) -> None:
     """
     pyflyte run --remote inputs_workflow.py workflow
     """

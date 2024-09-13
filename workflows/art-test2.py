@@ -30,7 +30,7 @@ Artifact = art(name="default", partition_keys=["file", "type", "group"])
 
 # TODO: create a new workflow that uses NamedTuple instead to see how the json gets spit out
 @workflow
-def training_workflow(data_path: str) -> Tuple[
+def wf(data_path: str) -> Tuple[
     # files that are annotated with the name "default" -- not ideal, but works
     Annotated[FlyteFile, Artifact(file="foo.pdf", type="report", group="report_foo")], 
     Annotated[FlyteFile, Artifact(file="bar.pdf", type="report", group="report_bar")],

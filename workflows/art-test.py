@@ -15,7 +15,7 @@ import uuid
 Artifact = art(name="default", partition_keys=["file", "type", "group"], version=str(uuid.uuid4()))
 
 @workflow
-def training_workflow(data_path: str) -> Annotated[FlyteFile, Artifact(file="processed.sas7bdat", type="data", group="task_output")]: 
+def wf(data_path: str) -> Annotated[FlyteFile, Artifact(file="processed.sas7bdat", type="data", group="task_output")]: 
     """
     pyflyte run --remote test.py training_workflow --data_path /mnt/data.csv
     """
