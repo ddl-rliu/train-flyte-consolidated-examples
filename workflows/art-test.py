@@ -23,7 +23,7 @@ def wf() -> Annotated[FlyteFile, Artifact(file="processed.sas7bdat", type="data"
     data_prep_results = DominoJobTask(    
         name="Prepare data",    
         domino_job_config=DominoJobConfig(
-            Command="python /mnt/scripts/prep-data.py",
+            Command="python /mnt/train-flyte-consolidated-examples/data/prep-data.py",
         ),
         inputs={
             "data_path": str

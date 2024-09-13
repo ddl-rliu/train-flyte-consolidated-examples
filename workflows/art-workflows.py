@@ -56,7 +56,7 @@ def wf() -> Tuple[
     data_prep_results = DominoJobTask(    
         name="Prepare data",    
         domino_job_config=DominoJobConfig(
-            Command="python /mnt/scripts/prep-data.py",
+            Command="python /mnt/train-flyte-consolidated-examples/data/prep-data.py",
         ),
         inputs={
             "data_path": str
@@ -74,7 +74,7 @@ def wf() -> Tuple[
     training_results = DominoJobTask(
         name="Train model",
         domino_job_config=DominoJobConfig(            
-            Command="python /mnt/scripts/train-model.py",
+            Command="python /mnt/train-flyte-consolidated-examples/data/prep-data.py",
         ),
         inputs={
             # NOTE: Marking the input with the Annotation doesn't seem to do anything different
