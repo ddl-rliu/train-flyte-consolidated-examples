@@ -1,5 +1,7 @@
 """
 Author: ddl-ebrown
+
+The workflow returns many artifacts outputs and regular outputs.
 """
 
 # example code from https://github.com/ddl-jwu/domino-flows-playground

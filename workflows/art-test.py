@@ -1,5 +1,7 @@
 """
 Author: ddl-ebrown
+
+The workflow creates a single artifact.
 """
 
 from flytekitplugins.domino.helpers import DominoJobTask, DominoJobConfig, Input, Output

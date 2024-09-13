@@ -1,5 +1,7 @@
 """
 Author: ddl-ebrown
+
+Potential duplicate of art-workflows.py
 """
 
 # example code from https://github.com/ddl-jwu/domino-flows-playground

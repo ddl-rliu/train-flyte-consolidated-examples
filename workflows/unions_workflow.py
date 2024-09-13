@@ -1,5 +1,7 @@
 """
 Author: ddl-galias
+
+Workflow with some complex union inputs, but they are commented out.
 """
 
 import numpy as np
