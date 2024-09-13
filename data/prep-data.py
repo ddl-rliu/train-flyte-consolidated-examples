@@ -1,7 +1,7 @@
 import os
 
 named_output = "model"
-os.mkdir("/workflow/outputs/{}".format(named_output)) 
+os.makedirs("/workflow/outputs/{}".format(named_output), exist_ok=True)
 
 named_output = "processed_data"
 with open("/workflow/outputs/{}".format(named_output), "w") as f:
