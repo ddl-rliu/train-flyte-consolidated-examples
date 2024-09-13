@@ -59,7 +59,7 @@ def wf() -> None:
         environment="Domino Standard Environment Py3.10 R4.4",
         hardware_tier="Small",
         inputs=[
-            Input(name="data_path", type=str, value="/mnt/code/data/data2.csv")
+            Input(name="data_path", type=str, value="/mnt/train-flyte-consolidated-examples/data/data.csv")
         ],
         outputs=[
             Output(name="processed_data", type=FlyteFile[TypeVar("csv")])

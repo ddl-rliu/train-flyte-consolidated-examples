@@ -40,7 +40,7 @@ class Color(Enum):
 
 # union_value: Union[Union[str,int],str,int,bool,datetime,timedelta,FlyteFile,float,dict])
 @workflow
-def wf(data_path: str, data_path_2: str) -> None:
+def wf() -> None:
     """
     pyflyte run --remote inputs_workflow.py workflow
     """
@@ -53,7 +53,7 @@ def wf(data_path: str, data_path_2: str) -> None:
         environment="Domino Standard Environment Py3.10 R4.4",
         hardware_tier="Small",
         inputs=[
-            Input(name="data_path", type=str, value=data_path)
+            Input(name="data_path", type=str, value="/mnt/train-flyte-consolidated-examples/data/data.csv")
         ],
         outputs=[
             Output(name="processed_data", type=FlyteFile[TypeVar("csv")])
@@ -66,7 +66,7 @@ def wf(data_path: str, data_path_2: str) -> None:
         environment="Domino Standard Environment Py3.10 R4.4",
         hardware_tier="Small",
         inputs=[
-            Input(name="data_path", type=str, value=data_path)
+            Input(name="data_path", type=str, value="/mnt/train-flyte-consolidated-examples/data/data.csv")
         ],
         outputs=[
             Output(name="processed_data", type=FlyteFile[TypeVar("csv")])
@@ -79,7 +79,7 @@ def wf(data_path: str, data_path_2: str) -> None:
         environment="Domino Standard Environment Py3.10 R4.4",
         hardware_tier="Small",
         inputs=[
-            Input(name="data_path", type=str, value=data_path)
+            Input(name="data_path", type=str, value="/mnt/train-flyte-consolidated-examples/data/data.csv")
         ],
         outputs=[
             Output(name="processed_data", type=FlyteFile[TypeVar("txt")])

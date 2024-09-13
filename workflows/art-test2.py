@@ -30,7 +30,7 @@ Artifact = art(name="default", partition_keys=["file", "type", "group"])
 
 # TODO: create a new workflow that uses NamedTuple instead to see how the json gets spit out
 @workflow
-def wf(data_path: str) -> Tuple[
+def wf() -> Tuple[
     # files that are annotated with the name "default" -- not ideal, but works
     Annotated[FlyteFile, Artifact(file="foo.pdf", type="report", group="report_foo")], 
     Annotated[FlyteFile, Artifact(file="bar.pdf", type="report", group="report_bar")],
@@ -57,7 +57,7 @@ def wf(data_path: str) -> Tuple[
             "processed_data_out2": Annotated[FlyteFile, Artifact(file="processed2.sas7bdat", group="task_output2")],
         },
         use_latest=True,
-    )(data_path=data_path)
+    )(data_path="/mnt/train-flyte-consolidated-examples/data/data.csv")
 
     training_results = DominoJobTask(
         name="Train model",
