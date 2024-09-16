@@ -55,7 +55,7 @@ ReportGroupId2 = str(uuid.uuid4())
 # ReportGroup = Group(name="my custom report", type=Report)
 
 @workflow
-def artifact_meta(data_path: str) -> Tuple[
+def wf(data_path: str) -> Tuple[
     Annotated[FlyteFile, ReportArtifact(key=ReportGroupId1, type="report", group="report_foo")], 
     Annotated[FlyteFile, ReportArtifact2(key=ReportGroupId1, type="report", group="report_foo")], 
     Annotated[FlyteFile, ReportArtifact3(key=ReportGroupId2, type="report", group="report_bar")], 
