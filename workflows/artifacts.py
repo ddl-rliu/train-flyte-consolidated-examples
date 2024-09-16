@@ -96,7 +96,7 @@ def wf() -> Tuple[
     training_results = DominoJobTask(
         name="Train model",
         domino_job_config=DominoJobConfig(            
-            Command="python /mnt/scripts/train-model.py",
+            Command="python /mnt/train-flyte-consolidated-examples/data/prep-data.py",
         ),
         inputs={
             "processed_data_in": FlyteFile,
@@ -104,11 +104,45 @@ def wf() -> Tuple[
             "batch_size": int,
         },
         outputs={
-            "model": FlyteFile,
+            "model": FlyteFile[TypeVar("pdf")],
+        },
+        use_latest=True,
+    )(processed_data_in=data_prep_results.processed_data,epochs=10,batch_size=32)
+
+    training_results2 = DominoJobTask(
+        name="Train model",
+        domino_job_config=DominoJobConfig(            
+            Command="python /mnt/train-flyte-consolidated-examples/data/prep-data.py",
+        ),
+        inputs={
+            "processed_data_in": FlyteFile,
+            "epochs": int,
+            "batch_size": int,
+        },
+        outputs={
+            "model": FlyteFile[TypeVar("pdf")],
+        },
+        use_latest=True,
+    )(processed_data_in=data_prep_results.processed_data,epochs=10,batch_size=32)
+
+    training_results3 = DominoJobTask(
+        name="Train model",
+        domino_job_config=DominoJobConfig(            
+            Command="python /mnt/train-flyte-consolidated-examples/data/prep-data.py",
+        ),
+        inputs={
+            "processed_data_in": FlyteFile,
+            "epochs": int,
+            "batch_size": int,
+        },
+        outputs={
+            "model": FlyteFile[TypeVar("pdf")],
         },
         use_latest=True,
     )(processed_data_in=data_prep_results.processed_data,epochs=10,batch_size=32)
 
     # return the result from 2nd node to the workflow annotated in different ways
     model = training_results['model']
-    return model, model, model, model, model, model, model
+    model2 = training_results2['model']
+    model3 = training_results3['model']
+    return model, model2, model, model, model2, model3, model
