@@ -1,70 +1,78 @@
 """
 Author: ddl-ebrown
 
-Potential duplicate of art-workflows.py
+The workflow returns many artifacts outputs and regular outputs.
 """
-
-# example code from https://github.com/ddl-jwu/domino-flows-playground
 
 from flytekitplugins.domino.helpers import DominoJobTask, DominoJobConfig, Input, Output
 from flytekit import workflow, dynamic
 from flytekit.types.file import FlyteFile
 from flytekit.types.directory import FlyteDirectory
 from typing import TypeVar, Optional, List, Dict, Annotated, Tuple, NamedTuple
-from flytekit import Artifact as art
+from flytekit import Artifact
+import uuid
 
 # key pieces of data to collect
 
-# at the artifact group level
+# artifact groups are identified uniquely by uuid
+# * key (uuid)
 # * name
 # * type
-# * key (uuid)
 
-# at the individual artifact level
+# artifact files within each group are identified uniquely by uuid
+# * key (uuid)
 # * filename
-# * artifact group
-# * key (uuid)
+# * artifact group (foreign key)
 
-# Ideally we need to track 3 key pieces of data
-# specific file name
-# group name (artifact belongs to)
-# type (type - data, model or report)
+# the problem is the way that Flyte stores metadata and how the existing development experience works
+# it makes it cumbersome to place artifacts into specific groups b/c of how the Python types are defined
 
-# TODO: how can callers be allowed to override the name property on each artifact?
-# TODO: is there a way to set a default value for type? (to just plain "report")
-Artifact = art(name="default", partition_keys=["file", "type", "group"])
+# we need to change the DX because:
+# it's error prone
+# requires specifying the group values as partitions again and again
+# requires more code than should be necessary, including predefining Artifacts by name instead of inside the Annotation
+# the name of the artifact should be able to automatically set the extension (used by frontend for file previews)
 
-ReportArtifact = art(name)
+# also note its worth investigating behavior dynamic partitions - i.e. ReportArtifact.create_from()
 
+# upstream code here shows some examples
+# https://github.com/flyteorg/flytekit/blob/master/flytekit/core/artifact.py#L371
+# https://github.com/flyteorg/flytekit/blob/master/tests/flytekit/unit/core/test_artifacts.py
 
-# old code
-# DominoData = Artifact(name="dominoData", type="data")
-# PrepData = Artifact(name="prepData", partition_keys=["report_name"])
-# TrainingData = Artifact(name="trainingData", partition_keys=["report_name"])
+# to use partition_keys (necessary for Domino), we have to define this type up front -- this entire definition should be eliminated
+ReportArtifact = Artifact(name="report.pdf", partition_keys=["key", "type", "group"], version=str(uuid.uuid4()))
+ReportArtifact2 = Artifact(name="report2.pdf", partition_keys=["key", "type", "group"], version=str(uuid.uuid4()))
+ReportArtifact3 = Artifact(name="report3.pdf", partition_keys=["key", "type", "group"], version=str(uuid.uuid4()))
+ReportArtifact4 = Artifact(name="report4.pdf", partition_keys=["key", "type", "group"], version=str(uuid.uuid4()))
+ReportArtifact5 = Artifact(name="report5.pdf", partition_keys=["key", "type", "group"], version=str(uuid.uuid4()))
+ReportArtifact6 = Artifact(name="report6.pdf", partition_keys=["key", "type", "group"], version=str(uuid.uuid4()))
 
-# TODO: users can still put there single artifact file into multiple types?
-MultiPart = art(name="multipartition", partition_keys=["partition1", "partition2"])
+# this part is especially awful and something our helpers should take care of
+ReportGroupId1 = str(uuid.uuid4())
+ReportGroupId2 = str(uuid.uuid4())
 
-# TODO: create a new workflow that uses NamedTuple instead to see how the json gets spit out
+# ideally, a group is defined like this
+# ReportGroup = Group(name="my custom report", type=Report)
+
 @workflow
-def wf() -> Tuple[
-    # Error - Binding a partition partition1's value dynamically is not allowed for workflows
-    # Annotated[FlyteFile, Artifact(name="generic", partition_keys=["partition1", "partition2"])],
-    Annotated[FlyteFile, art(name="generic")],
-    # Error - Partition key name not found in ['partition1', 'partition2']
-    # really the error is that name can't be specified again
-    # Annotated[FlyteFile, MultiPart(name="generic", partition1="foo", partition2="bar")],
-    Annotated[FlyteFile, MultiPart(partition1="foo", partition2="bar")],
-    Annotated[FlyteFile, MultiPart(partition1="bar", partition2="foo")],
+def artifact_meta(data_path: str) -> Tuple[
+    Annotated[FlyteFile, ReportArtifact(key=ReportGroupId1, type="report", group="report_foo")], 
+    Annotated[FlyteFile, ReportArtifact2(key=ReportGroupId1, type="report", group="report_foo")], 
+    Annotated[FlyteFile, ReportArtifact3(key=ReportGroupId2, type="report", group="report_bar")], 
+    Annotated[FlyteFile, ReportArtifact4(key=ReportGroupId2, type="report", group="report_bar")], 
+    Annotated[FlyteFile, ReportArtifact5(key=ReportGroupId2, type="report", group="report_bar")], 
+    Annotated[FlyteFile, ReportArtifact6(key=ReportGroupId2, type="report", group="report_bar")], 
 
-    # files that are annotated with the name "default" -- not ideal, but works
-    Annotated[FlyteFile, Artifact(file="foo.pdf", type="report", group="report_foo")], 
-    Annotated[FlyteFile, Artifact(file="bar.pdf", type="report", group="report_bar")],
+    # ideally the definition looks more like this:
+    # Annotated[FlyteFile, Artifact(name="report.pdf", Group=ReportGroup)], 
+    # this could be further simplified in the programming model if we know that these artifacts are only a single file like
+    # ArtifactFile(name="report.pdf", Group=ReportGroup)
+
     # normal workflow output with no annotations
     FlyteFile
     ]: 
-    """
-    pyflyte run --remote artifacts.py training_workflow --data_path /mnt/data.csv
+    """py
+    pyflyte run --remote artifacts-po.py artifact_meta --data_path /mnt/data.csv
     """
 
     data_prep_results = DominoJobTask(    
@@ -75,12 +83,12 @@ def wf() -> Tuple[
         inputs={
             "data_path": str
         },
-        # TODO: NOTE: interestingly, type= doesn't need to be specified here??
         outputs={
+            # NOTE: Flyte normally suppports this -- but notice there are no partitions, which make them useless to Domino
             # this output is consumed by a subsequent task but also marked as an artifact
-            "processed_data_out": Annotated[FlyteFile, Artifact(file="processed.sas7bdat", group="task_output")],
+            "processed_data": Annotated[FlyteFile, Artifact(name="processed.sas7bdat", version=str(uuid.uuid4()))],
             # no downstream consumers -- simply an artifact output from an intermediate node in the graph
-            "processed_data_out2": Annotated[FlyteFile, Artifact(file="processed2.sas7bdat", group="task_output2")],
+            "processed_data2": Annotated[FlyteFile, Artifact(name="processed2.sas7bdat", version=str(uuid.uuid4()))],
         },
         use_latest=True,
     )(data_path="/mnt/train-flyte-consolidated-examples/data/data.csv")
@@ -88,11 +96,9 @@ def wf() -> Tuple[
     training_results = DominoJobTask(
         name="Train model",
         domino_job_config=DominoJobConfig(            
-            Command="python /mnt/train-flyte-consolidated-examples/data/prep-data.py",
+            Command="python /mnt/scripts/train-model.py",
         ),
         inputs={
-            # NOTE: Marking the input with the Annotation doesn't seem to do anything different
-            # "processed_data_in", Annotated[FlyteFile, PrepData(report_name="task_input")],
             "processed_data_in": FlyteFile,
             "epochs": int,
             "batch_size": int,
@@ -101,11 +107,8 @@ def wf() -> Tuple[
             "model": FlyteFile,
         },
         use_latest=True,
-    )(processed_data_in=data_prep_results.processed_data_out,epochs=10,batch_size=32)
-
-    # TODO: test dynamic partition creation
-    # return TrainingData.create_from()
+    )(processed_data_in=data_prep_results.processed_data,epochs=10,batch_size=32)
 
     # return the result from 2nd node to the workflow annotated in different ways
     model = training_results['model']
-    return model, model, model, model, model, model
+    return model, model, model, model, model, model, model
