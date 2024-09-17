@@ -66,15 +66,15 @@ def wf() -> None:
         ]
     )
 
-    # data_prep_nada = DominoTask(
-    #     name="Prepare nada",
-    #     command="touch /workflow/outputs/nada",
-    #     environment="Domino Standard Environment Py3.10 R4.4",
-    #     hardware_tier="Small",
-    #     outputs=[
-    #         Output(name="nada", type=NoneType)
-    #     ]
-    # )
+    data_prep_nada = DominoTask(
+        name="Prepare nada",
+        command="touch /workflow/outputs/nada",
+        environment="Domino Standard Environment Py3.10 R4.4",
+        hardware_tier="Small",
+        outputs=[
+            Output(name="nada", type=NoneType)
+        ]
+    )
 
     DominoTask(
         name="Rare inputs workflow 2",
@@ -87,56 +87,56 @@ def wf() -> None:
                 type=FlyteFile[TypeVar("csv")], 
                 value=data_prep_results['processed_data']
             ),
-            # Input(
-            #     name="collection_input", 
-            #     type=List[Union[dict,float,FlyteFile[TypeVar("csv")],List[Union[str, FlyteFile[TypeVar("csv")]]]]], 
-            #     value=[
-            #         11.1,
-            #         data_prep_results['processed_data'],
-            #         { "value": 11 },
-            #         ['hola', data_prep_results['processed_data']]
-            #     ]
-            # ),
-            # Input(
-            #     name="structured_data_set_input", 
-            #     type=Annotated[StructuredDataset, CSV], 
-            #     value=sd
-            # ),
-            # Input(
-            #     name="enum_input", 
-            #     type=Color, 
-            #     value=Color.BLUE
-            # ),
-            # # Input(
-            # #     name="none_input", 
-            # #     type=NoneType,
-            # #     value=data_prep_nada['nada']
-            # # ),
-            # Input(
-            #     name="schema_input", 
-            #     type=FlyteSchema,
-            #     value=df
-            # ),
-            # Input(
-            #     name="blob_input", 
-            #     type=FlyteFile[TypeVar("csv")],
-            #     value=data_prep_results['processed_data']
-            # ),
-            # Input(
-            #     name="boolean_input", 
-            #     type=bool,
-            #     value=True
-            # ),
-            # Input(
-            #     name="float_input", 
-            #     type=float,
-            #     value=14.4
-            # ),
-            # Input(
-            #     name="integer_input", 
-            #     type=int,
-            #     value=14
-            # )
+            Input(
+                name="collection_input", 
+                type=List[Union[dict,float,FlyteFile[TypeVar("csv")],List[Union[str, FlyteFile[TypeVar("csv")]]]]], 
+                value=[
+                    11.1,
+                    data_prep_results['processed_data'],
+                    { "value": 11 },
+                    ['hola', data_prep_results['processed_data']]
+                ]
+            ),
+            Input(
+                name="structured_data_set_input", 
+                type=Annotated[StructuredDataset, CSV], 
+                value=sd
+            ),
+            Input(
+                name="enum_input", 
+                type=Color, 
+                value=Color.BLUE
+            ),
+            Input(
+                name="none_input", 
+                type=NoneType,
+                value=data_prep_nada['nada']
+            ),
+            Input(
+                name="schema_input", 
+                type=FlyteSchema,
+                value=df
+            ),
+            Input(
+                name="blob_input", 
+                type=FlyteFile[TypeVar("csv")],
+                value=data_prep_results['processed_data']
+            ),
+            Input(
+                name="boolean_input", 
+                type=bool,
+                value=True
+            ),
+            Input(
+                name="float_input", 
+                type=float,
+                value=14.4
+            ),
+            Input(
+                name="integer_input", 
+                type=int,
+                value=14
+            )
         ],
         outputs=[],
     )
