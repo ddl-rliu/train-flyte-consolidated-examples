@@ -59,150 +59,150 @@ def wf() -> None:
         environment="Domino Standard Environment Py3.10 R4.4",
         hardware_tier="Small",
         inputs=[
-            # Input(
-            #     name="map_union_nested", 
-            #     type=Dict[
-            #         str,
-            #         Union[
-            #             Dict[str,
-            #                 Union[
-            #                     Dict[
-            #                             str,
-            #                             Union[List[str], str
-            #                         ]
-            #                     ],
-            #                     List[
-            #                         Union[
-            #                             Dict[
-            #                                 str,
-            #                                 Union[List[str], str]
-            #                             ]
-            #                         ]
-            #                     ]
-            #                 ]
-            #             ],
-            #             List[
-            #                 Union[
-            #                     Dict[
-            #                             str,
-            #                             Union[List[str], str
-            #                         ]
-            #                     ],
-            #                     List[
-            #                         Union[
-            #                             Dict[
-            #                                 str,
-            #                                 Union[List[str], str]
-            #                             ]
-            #                         ]
-            #                     ],
-            #                     str
-            #                 ]
-            #             ]
-            #         ]
-            #     ], 
-            #     value={
-            #         "v1": {
-            #             "v1.1": [{ "v1.1.1": ["1"] }],
-            #         },
-            #         "v2": [
-            #             { "v2.1": ["hi!"]}
-            #         ]
-            #     }
-            # ),Input(
-            #     name="map_list_nested", 
-            #     type=List[
-            #         Union[
-            #             Dict[str,
-            #                 Union[
-            #                     Dict[
-            #                             str,
-            #                             Union[List[str], str
-            #                         ]
-            #                     ],
-            #                     List[
-            #                         Union[
-            #                             Dict[
-            #                                 str,
-            #                                 Union[List[str], str]
-            #                             ]
-            #                         ]
-            #                     ]
-            #                 ]
-            #             ],
-            #             List[
-            #                 Union[
-            #                     Dict[
-            #                             str,
-            #                             Union[List[str], str
-            #                         ]
-            #                     ],
-            #                     List[
-            #                         Union[
-            #                             Dict[
-            #                                 str,
-            #                                 Union[List[str], str]
-            #                             ]
-            #                         ]
-            #                     ],
-            #                     str
-            #                 ]
-            #             ]
-            #         ]
-            #     ], 
-            #     value=[
-            #         {
-            #             "v1.1": [{ "v1.1.1": ["1"] }],
-            #         },
-            #         [
-            #             { "v2.1": ["hi!"]}
-            #         ]
-            #     ]
-            # ),
-            # Input(
-            #     name="union", 
-            #     type=Union[
-            #             Dict[str,
-            #                 Union[
-            #                     Dict[
-            #                             str,
-            #                             Union[List[str], str
-            #                         ]
-            #                     ],
-            #                     List[
-            #                         Union[
-            #                             Dict[
-            #                                 str,
-            #                                 Union[List[str], str]
-            #                             ]
-            #                         ]
-            #                     ]
-            #                 ]
-            #             ],
-            #             List[
-            #                 Union[
-            #                     Dict[
-            #                             str,
-            #                             Union[List[str], str
-            #                         ]
-            #                     ],
-            #                     List[
-            #                         Union[
-            #                             Dict[
-            #                                 str,
-            #                                 Union[List[str], str]
-            #                             ]
-            #                         ]
-            #                     ],
-            #                     str
-            #                 ]
-            #             ]
-            #         ],
-            #     value=
-            #         {
-            #             "v1.1": [{ "v1.1.1": ["1"] }],
-            #         },
-            # ),
+            Input(
+                name="map_union_nested", 
+                type=Dict[
+                    str,
+                    Union[
+                        Dict[str,
+                            Union[
+                                Dict[
+                                        str,
+                                        Union[List[str], str
+                                    ]
+                                ],
+                                List[
+                                    Union[
+                                        Dict[
+                                            str,
+                                            Union[List[str], str]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ],
+                        List[
+                            Union[
+                                Dict[
+                                        str,
+                                        Union[List[str], str
+                                    ]
+                                ],
+                                List[
+                                    Union[
+                                        Dict[
+                                            str,
+                                            Union[List[str], str]
+                                        ]
+                                    ]
+                                ],
+                                str
+                            ]
+                        ]
+                    ]
+                ], 
+                value={
+                    "v1": {
+                        "v1.1": [{ "v1.1.1": ["1"] }],
+                    },
+                    "v2": [
+                        { "v2.1": ["hi!"]}
+                    ]
+                }
+            ),Input(
+                name="map_list_nested", 
+                type=List[
+                    Union[
+                        Dict[str,
+                            Union[
+                                Dict[
+                                        str,
+                                        Union[List[str], str
+                                    ]
+                                ],
+                                List[
+                                    Union[
+                                        Dict[
+                                            str,
+                                            Union[List[str], str]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ],
+                        List[
+                            Union[
+                                Dict[
+                                        str,
+                                        Union[List[str], str
+                                    ]
+                                ],
+                                List[
+                                    Union[
+                                        Dict[
+                                            str,
+                                            Union[List[str], str]
+                                        ]
+                                    ]
+                                ],
+                                str
+                            ]
+                        ]
+                    ]
+                ], 
+                value=[
+                    {
+                        "v1.1": [{ "v1.1.1": ["1"] }],
+                    },
+                    [
+                        { "v2.1": ["hi!"]}
+                    ]
+                ]
+            ),
+            Input(
+                name="union", 
+                type=Union[
+                        Dict[str,
+                            Union[
+                                Dict[
+                                        str,
+                                        Union[List[str], str
+                                    ]
+                                ],
+                                List[
+                                    Union[
+                                        Dict[
+                                            str,
+                                            Union[List[str], str]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ],
+                        List[
+                            Union[
+                                Dict[
+                                        str,
+                                        Union[List[str], str
+                                    ]
+                                ],
+                                List[
+                                    Union[
+                                        Dict[
+                                            str,
+                                            Union[List[str], str]
+                                        ]
+                                    ]
+                                ],
+                                str
+                            ]
+                        ]
+                    ],
+                value=
+                    {
+                        "v1.1": [{ "v1.1.1": ["1"] }],
+                    },
+            ),
         ],
         outputs=[],
     )
