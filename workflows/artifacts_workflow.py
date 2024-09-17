@@ -5,7 +5,7 @@ The workflow returns many artifacts outputs and regular outputs.
 """
 
 from flytekitplugins.domino.helpers import DominoJobTask, DominoJobConfig, Input, Output
-from flytekit import workflow, dynamic
+from flytekit import workflow
 from flytekit.types.file import FlyteFile
 from flytekit.types.directory import FlyteDirectory
 from typing import TypeVar, Optional, List, Dict, Annotated, Tuple, NamedTuple

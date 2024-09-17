@@ -26,7 +26,6 @@ register_csv_handlers()
 
 
 from flytekit.types.structured.structured_dataset import (
-    PARQUET,
     StructuredDataset,
     StructuredDatasetDecoder,
     StructuredDatasetEncoder,

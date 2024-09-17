@@ -19,7 +19,6 @@ from flytekit.types.structured.structured_dataset import CSV
 from flytekit.types.structured import register_csv_handlers
 
 from flytekit.types.structured.structured_dataset import (
-    PARQUET,
     StructuredDataset,
     StructuredDatasetDecoder,
     StructuredDatasetEncoder,
