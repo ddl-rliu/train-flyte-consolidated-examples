@@ -88,7 +88,7 @@ def wf() -> None:
 
     DominoTask(
         name="Inputs workflow 2",
-        command="python /mnt/scripts/train-model.py",
+        command="python /mnt/train-flyte-consolidated-examples/data/prep-data.py",
         environment="Domino Standard Environment Py3.10 R4.4",
         hardware_tier="Small",
         inputs=[
