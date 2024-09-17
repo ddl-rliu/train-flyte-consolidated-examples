@@ -88,62 +88,62 @@ def wf() -> None:
 
     DominoTask(
         name="Inputs workflow 2",
-        command="python /mnt/train-flyte-consolidated-examples/data/prep-data.py",
+        command="python /mnt/scripts/train-model.py",
         environment="Domino Standard Environment Py3.10 R4.4",
         hardware_tier="Small",
         inputs=[
-            # Input(
-            #     name="map_input_base", 
-            #     type=Dict[str, Union[str, float,FlyteFile[TypeVar("csv")],Dict[str, Union[str, FlyteFile[TypeVar("csv")]]]]], 
-            #     value={
-            #         "value1": 11.1,
-            #         "value2": data_prep_results_2['processed_data'],
-            #         "value4": { "value4.1": 'hola', "value4.2": data_prep_results['processed_data'] },
-            #     }
-            # ),
-            # Input(
-            #     name="map_input_int", 
-            #     type=Dict[int, str], 
-            #     value={
-            #         1: '11.1',
-            #         3: '1',
-            #         3: '2',
-            #     }
-            # ),
-            # Input(name="file_input", type=FlyteFile[TypeVar('csv')], value=data_prep_results_2['processed_data']),
-            # Input(name="union_input", type=Union[Union[dict,float],str,int,bool,datetime,timedelta,FlyteFile], value=union_value),
-            # Input(name="datetime_input", type=datetime, value=datetime(2024, 5, 10)),
-            # Input(name="duration_input", type=timedelta, value=td),
-            # Input(
-            #     name="struct_none", 
-            #     type=dict, 
-            #     value={}
-            # ),
-            # Input(
-            #     name="struct_json", 
-            #     type=dict, 
-            #     value={
-            #         "values1": [1, 2, 3, 4, 5],
-            #         "values2": {
-            #             "number_value": 3,
-            #             "number_value": 3,
-            #             "number_value": 4
-            #         },
-            #         "values3": "1",
-            #         "values4": False,
-            #         "values5": 1,
-            #         "values5": None
-            #     }
-            # ),
-            # Input(
-            #     name="struct_list", 
-            #     type=dict, 
-            #     value={
-            #         "values": {
-            #             "number_value": 6
-            #         },
-            #     }
-            # ),
+            Input(
+                name="map_input_base", 
+                type=Dict[str, Union[str, float,FlyteFile[TypeVar("csv")],Dict[str, Union[str, FlyteFile[TypeVar("csv")]]]]], 
+                value={
+                    "value1": 11.1,
+                    "value2": data_prep_results_2['processed_data'],
+                    "value4": { "value4.1": 'hola', "value4.2": data_prep_results['processed_data'] },
+                }
+            ),
+            Input(
+                name="map_input_int", 
+                type=Dict[int, str], 
+                value={
+                    1: '11.1',
+                    3: '1',
+                    3: '2',
+                }
+            ),
+            Input(name="file_input", type=FlyteFile[TypeVar('csv')], value=data_prep_results_2['processed_data']),
+            Input(name="union_input", type=Union[Union[dict,float],str,int,bool,datetime,timedelta,FlyteFile], value=union_value),
+            Input(name="datetime_input", type=datetime, value=datetime(2024, 5, 10)),
+            Input(name="duration_input", type=timedelta, value=td),
+            Input(
+                name="struct_none", 
+                type=dict, 
+                value={}
+            ),
+            Input(
+                name="struct_json", 
+                type=dict, 
+                value={
+                    "values1": [1, 2, 3, 4, 5],
+                    "values2": {
+                        "number_value": 3,
+                        "number_value": 3,
+                        "number_value": 4
+                    },
+                    "values3": "1",
+                    "values4": False,
+                    "values5": 1,
+                    "values5": None
+                }
+            ),
+            Input(
+                name="struct_list", 
+                type=dict, 
+                value={
+                    "values": {
+                        "number_value": 6
+                    },
+                }
+            ),
             Input(
                 name="collection_input", 
                 type=List[Union[dict,float,FlyteFile[TypeVar("csv")],List[Union[str, FlyteFile[TypeVar("csv")]]]]], 
@@ -333,86 +333,86 @@ def wf() -> None:
                 value={
                     "v1": sd,
                 }
-            )
-            # Input(
-            #     name="collection_file_only_multi_level_input", 
-            #     type=List[List[FlyteFile[TypeVar("csv")]]], 
-            #     value=[
-            #         [data_prep_results['processed_data'], data_prep_results['processed_data']],
-            #         [data_prep_results_2['processed_data']]
-            #     ]
-            # ),
-            # Input(
-            #     name="collection_file_only_three_level_input", 
-            #     type=List[List[List[FlyteFile[TypeVar("txt")]]]], 
-            #     value=[
-            #         [[data_prep_results_3['processed_data'], data_prep_results_3['processed_data']]],
-            #         [[data_prep_results_3['processed_data']]]
-            #     ]
-            # ),
-            # Input(
-            #     name="map_file_only_one_level_input", 
-            #     type=Dict[str, FlyteFile[TypeVar("csv")]], 
-            #     value={
-            #         "value2": data_prep_results_2['processed_data'],
-            #     }
-            # ),
-            # Input(
-            #     name="map_file_only_multi_level_input", 
-            #     type=Dict[str, Dict[str,FlyteFile[TypeVar("csv")]]], 
-            #     value={
-            #         "value2": {
-            #             "value2.1": data_prep_results['processed_data'],
-            #             "value2.2": data_prep_results_2['processed_data']
-            #         }
-            #     }
-            # ),
-            # Input(
-            #     name="map_file_only_three_level_input", 
-            #     type=Dict[str, Dict[str,Dict[str,FlyteFile[TypeVar("csv")]]]], 
-            #     value={
-            #         "value2": {
-            #             "value2.1": {
-            #                 "value2.1.1": data_prep_results['processed_data'],
-            #             },
-            #             "value2.2": {
-            #                 "value2.2.1": data_prep_results_2['processed_data']
-            #             }
-            #         }
-            #     }
-            # ),
-            # Input(
-            #     name="map_plus_list_file_only_three_level_input", 
-            #     type=Dict[str, Dict[str,Dict[str,List[FlyteFile[TypeVar("csv")]]]]], 
-            #     value={
-            #         "value2": {
-            #             "value2.1": {
-            #                 "value2.1.1": [data_prep_results['processed_data']],
-            #             },
-            #             "value2.2": {
-            #                 "value2.2.1": [data_prep_results['processed_data'], data_prep_results['processed_data']]
-            #             }
-            #         }
-            #     }
-            # ),
-            # Input(
-            #     name="collection_plus_map_file_only_three_level_input", 
-            #     type=List[List[List[Dict[str,FlyteFile[TypeVar("txt")]]]]], 
-            #     value=[
-            #         [[
-            #             {
-            #                 "value1": data_prep_results_3['processed_data'],
-            #                 "value2": data_prep_results_3['processed_data']
-            #             },
-            #             {
-            #                 "valuealgo": data_prep_results_3['processed_data'],
-            #             }
-            #         ]],
-            #         [[
-            #             { "totallylost": data_prep_results_3['processed_data']
-            #             }]]
-            #     ]
-            # ),
+            ),
+            Input(
+                name="collection_file_only_multi_level_input", 
+                type=List[List[FlyteFile[TypeVar("csv")]]], 
+                value=[
+                    [data_prep_results['processed_data'], data_prep_results['processed_data']],
+                    [data_prep_results_2['processed_data']]
+                ]
+            ),
+            Input(
+                name="collection_file_only_three_level_input", 
+                type=List[List[List[FlyteFile[TypeVar("txt")]]]], 
+                value=[
+                    [[data_prep_results_3['processed_data'], data_prep_results_3['processed_data']]],
+                    [[data_prep_results_3['processed_data']]]
+                ]
+            ),
+            Input(
+                name="map_file_only_one_level_input", 
+                type=Dict[str, FlyteFile[TypeVar("csv")]], 
+                value={
+                    "value2": data_prep_results_2['processed_data'],
+                }
+            ),
+            Input(
+                name="map_file_only_multi_level_input", 
+                type=Dict[str, Dict[str,FlyteFile[TypeVar("csv")]]], 
+                value={
+                    "value2": {
+                        "value2.1": data_prep_results['processed_data'],
+                        "value2.2": data_prep_results_2['processed_data']
+                    }
+                }
+            ),
+            Input(
+                name="map_file_only_three_level_input", 
+                type=Dict[str, Dict[str,Dict[str,FlyteFile[TypeVar("csv")]]]], 
+                value={
+                    "value2": {
+                        "value2.1": {
+                            "value2.1.1": data_prep_results['processed_data'],
+                        },
+                        "value2.2": {
+                            "value2.2.1": data_prep_results_2['processed_data']
+                        }
+                    }
+                }
+            ),
+            Input(
+                name="map_plus_list_file_only_three_level_input", 
+                type=Dict[str, Dict[str,Dict[str,List[FlyteFile[TypeVar("csv")]]]]], 
+                value={
+                    "value2": {
+                        "value2.1": {
+                            "value2.1.1": [data_prep_results['processed_data']],
+                        },
+                        "value2.2": {
+                            "value2.2.1": [data_prep_results['processed_data'], data_prep_results['processed_data']]
+                        }
+                    }
+                }
+            ),
+            Input(
+                name="collection_plus_map_file_only_three_level_input", 
+                type=List[List[List[Dict[str,FlyteFile[TypeVar("txt")]]]]], 
+                value=[
+                    [[
+                        {
+                            "value1": data_prep_results_3['processed_data'],
+                            "value2": data_prep_results_3['processed_data']
+                        },
+                        {
+                            "valuealgo": data_prep_results_3['processed_data'],
+                        }
+                    ]],
+                    [[
+                        { "totallylost": data_prep_results_3['processed_data']
+                        }]]
+                ]
+            ),
         ],
         outputs=[],
     )
