@@ -50,7 +50,7 @@ matches = re.search(r'[0-9]+', "testme"); matches; type(matches)
 @workflow
 def wf() -> None:
     """
-    pyflyte run --remote inputs_rare_workflow.py workflow
+    pyflyte run --remote inputs_rare_workflow.py wf
     """
 
     data_prep_results = DominoTask(

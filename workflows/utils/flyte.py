@@ -33,6 +33,8 @@ def DominoTask(
     volume_size_gb: int = 10,
     inputs: List[Input] = None,
     outputs: List[Output] = None,
+    cache: bool = False,
+    cache_version: str = "",
 ) -> DominoJobTask:
 
     project_owner = os.environ.get("DOMINO_PROJECT_OWNER")
@@ -86,7 +88,9 @@ def DominoTask(
         name,
         job_config,
         inputs=input_types,
-        outputs=output_types, 
+        outputs=output_types,
+        cache=cache,
+        cache_version=cache_version,
     )
 
     results = job(**input_values)

@@ -1,7 +1,7 @@
 """
 Author: ddl-galias
 
-Workflow with some complex union inputs, but they are commented out.
+Workflow with many complex union inputs.
 """
 
 import numpy as np
@@ -50,7 +50,7 @@ matches = re.search(r'[0-9]+', "testme"); matches; type(matches)
 @workflow
 def wf() -> None:
     """
-    pyflyte run --remote unions_workflow.py workflow
+    pyflyte run --remote inputs_unions_workflow.py wf
     """
 
     DominoTask(

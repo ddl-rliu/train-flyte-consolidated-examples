@@ -72,7 +72,7 @@ def wf() -> Tuple[
     FlyteFile
     ]: 
     """py
-    pyflyte run --remote artifacts-po.py artifact_meta --data_path /mnt/data.csv
+    pyflyte run --remote artifacts_workflow.py wf
     """
 
     data_prep_results = DominoJobTask(    

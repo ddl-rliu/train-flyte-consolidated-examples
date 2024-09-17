@@ -1,7 +1,7 @@
 """
 Author: ddl-galias
 
-Workflow with many very complex inputs, but half are commented out.
+Workflow with caching enabled and many very complex inputs.
 """
 
 import numpy as np
@@ -42,7 +42,7 @@ class Color(Enum):
 @workflow
 def wf() -> None:
     """
-    pyflyte run --remote inputs_workflow.py workflow
+    pyflyte run --remote inputs_complex_workflow.py wf
     """
 
     td = timedelta(days=3, minutes=10)
@@ -70,7 +70,9 @@ def wf() -> None:
         ],
         outputs=[
             Output(name="processed_data", type=FlyteFile[TypeVar("csv")])
-        ]
+        ],
+        cache=True,
+        cache_version="v0",
     )
 
     data_prep_results_3 = DominoTask(
@@ -83,7 +85,9 @@ def wf() -> None:
         ],
         outputs=[
             Output(name="processed_data", type=FlyteFile[TypeVar("txt")])
-        ]
+        ],
+        cache=True,
+        cache_version="v0",
     )
 
     DominoTask(
@@ -415,4 +419,6 @@ def wf() -> None:
             ),
         ],
         outputs=[],
+        cache=True,
+        cache_version="v0",
     )
