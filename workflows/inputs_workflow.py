@@ -111,7 +111,7 @@ def wf() -> None:
                 }
             ),
             Input(name="file_input", type=FlyteFile[TypeVar('csv')], value=data_prep_results_2['processed_data']),
-            Input(name="union_input", type=Union[Union[dict,float],str,int,bool,datetime,timedelta,FlyteFile], value=union_value),
+            # Input(name="union_input", type=Union[Union[dict,float],str,int,bool,datetime,timedelta,FlyteFile], value=union_value),
             Input(name="datetime_input", type=datetime, value=datetime(2024, 5, 10)),
             Input(name="duration_input", type=timedelta, value=td),
             Input(
