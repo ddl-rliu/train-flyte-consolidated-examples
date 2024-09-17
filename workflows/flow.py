@@ -66,15 +66,15 @@ def wf() -> None:
         ]
     )
 
-    data_prep_nada = DominoTask(
-        name="Prepare nada",
-        command="touch /workflow/outputs/nada",
-        environment="Domino Standard Environment Py3.10 R4.4",
-        hardware_tier="Small",
-        outputs=[
-            Output(name="nada", type=NoneType)
-        ]
-    )
+    # data_prep_nada = DominoTask(
+    #     name="Prepare nada",
+    #     command="touch /workflow/outputs/nada",
+    #     environment="Domino Standard Environment Py3.10 R4.4",
+    #     hardware_tier="Small",
+    #     outputs=[
+    #         Output(name="nada", type=NoneType)
+    #     ]
+    # )
 
     DominoTask(
         name="Rare inputs workflow 2",
@@ -107,11 +107,11 @@ def wf() -> None:
                 type=Color, 
                 value=Color.BLUE
             ),
-            Input(
-                name="none_input", 
-                type=NoneType,
-                value=data_prep_nada['nada']
-            ),
+            # Input(
+            #     name="none_input", 
+            #     type=NoneType,
+            #     value=data_prep_nada['nada']
+            # ),
             Input(
                 name="schema_input", 
                 type=FlyteSchema,
