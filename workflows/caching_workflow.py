@@ -57,7 +57,9 @@ def wf() -> None:
         ],
         outputs=[
             Output(name="processed_data", type=FlyteFile[TypeVar("csv")])
-        ]
+        ],
+        cache=True,
+        cache_version="v0",
     )
 
     data_prep_results_2 = DominoTask(
